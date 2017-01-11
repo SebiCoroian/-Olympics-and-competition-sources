@@ -1,0 +1,51 @@
+#include<fstream>
+#include<iostream>
+#include<cstring>
+using namespace std;
+ 
+ 
+ 
+fstream fin("palindrom2.in",ios::in);
+fstream fout("palindrom2.out",ios::out);
+ 
+int palindrom(char s[], int &st, int &dr)
+{
+    while(st<dr  && s[st]==s[dr])
+    {
+        st++;
+        dr--;
+    }
+    if(st<dr)
+        return 0;
+    else
+        return 1;
+}
+ 
+char crt[2003],nou[2003];
+int main()
+{
+    int st,dr,ok,n;
+    fin>>crt;
+    n=strlen(crt);
+    st=0;
+    dr=n-1;
+    do
+    {
+        ok=palindrom(crt,st,dr);
+        if(ok)
+            break;
+ 
+        memcpy(nou,crt+dr+1,n-dr+2);
+        memcpy(crt+dr+2, nou, n-dr+2);
+        crt[dr+1]=crt[st];
+ 
+        st++;
+        n++;
+ 
+ 
+    }while(st<dr);
+    fout<<crt;
+    fin.close();
+    fout.close();
+    return 0;
+}
